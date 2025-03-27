@@ -3,6 +3,15 @@ from .models import Task
 from django.contrib.auth.models import User
 
 
+class TaskSerializer(serializers.ModelSerializer):
+    """Serializer for Task model."""
+
+    class Meta:
+        model = Task
+        fields = '__all__'
+        read_only_fields = ['owner', 'created_at']
+
+
 class RegisterSerializer(serializers.ModelSerializer):
     """
     Serializer for registering new users.
