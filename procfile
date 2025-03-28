@@ -1,1 +1,1 @@
-web: gunicorn task_tracker_drf.wsgi
+web: gunicorn backend.wsgi
