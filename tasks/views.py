@@ -5,6 +5,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import RegisterSerializer
+# Testing
+from rest_framework.permissions import AllowAny
+
+
 
 
 class RegisterView(APIView):
@@ -38,7 +42,8 @@ class TaskViewSet(viewsets.ModelViewSet):
     """
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def perform_create(self, serializer):
         """
