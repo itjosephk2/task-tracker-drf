@@ -145,6 +145,6 @@ REST_FRAMEWORK = {
 }
 
 
-DATABASES['default'] = dj_database_url.config(
-    default=os.getenv('DATABASE_URL')
-)
+if os.getenv("DATABASE_URL"):
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+
