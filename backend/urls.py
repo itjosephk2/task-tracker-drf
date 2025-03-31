@@ -6,5 +6,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('tasks.urls')),
     path('api/login/', obtain_auth_token, name='api_token_auth'),
-    path('signup/', RegisterView.as_view(), name='signup'),
 ]
