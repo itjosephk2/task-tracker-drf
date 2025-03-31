@@ -15,6 +15,11 @@ DEBUG = os.getenv("DEBUG", "False") == "True"
 # ALLOWED HOSTS (split comma-separated string into a list)
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1").split(",")
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://localhost:3001",
+]
+
 
 # Application definition
 
@@ -28,11 +33,14 @@ INSTALLED_APPS = [
     # rest
     'rest_framework',
     'rest_framework.authtoken',
+    'corsheaders',
     # custom apps
     'tasks',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
