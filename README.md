@@ -1,150 +1,301 @@
-# Task Tracker Front-End
+# Task Tracker Backend
+ 
+ This is the backend for the **Task Tracker** project, built using Django and Django REST Framework (DRF). It provides a RESTful API for managing tasks and user authentication.
+ 
+ ---
+ 
+ ## Table of Contents
+ 
+ - [Features](#features)
+ - [Technologies Used](#technologies-used)
+ - [Installation & Setup](#installation--setup)
+ - [API Endpoints](#api-endpoints)
+ - [Authentication](#authentication)
+ - [Testing](#testing)
+   - [Automated Testing](#automated-testing)
+   - [Manual Testing](#manual-testing)
+ - [Models](#models)
+ - [Deployment (Heroku)](#deployment-heroku)
+ - [Notes](#notes)
+ - [Author](#author)
+ 
+ ---
+ 
+ ## Features
+ 
+ This backend is designed for individual users or small teams to manage their personal or shared task lists. It is suitable for applications where each user needs secure authentication and private task management via a simple API interface.
+ 
+ - User Registration
+ - Token-based Authentication (Login)
+ - CRUD functionality for tasks (Create, Read, Update, Delete)
+ - Authorization: Users can only view and manage their own tasks
+ - Deployed to Heroku
+ 
+ ---
+ 
+ ## Technologies Used
+ 
+ - Python 3.13
+ - Django 5.1.7
+ - Django REST Framework 3.15.2
+ - Gunicorn (for Heroku deployment)
+ - PostgreSQL (Neon hosted)
+ - Heroku for deployment
+ 
+ ---
+ 
+ ## Installation & Setup
+ 
+ 1. Clone the repository:
+ 
+ 
+bash
+ git clone https://github.com/itjosephk2/task-tracker-drf.git
+ cd task-tracker-drf
 
-This is the front-end React application for the **Task Tracker** project, built as part of the Advanced Front-End Portfolio Project for the Code Institute Full-Stack Software Development diploma.
+ 
+ 2. Create and activate a virtual environment:
+ 
+ 
+bash
+ python -m venv venv
+ source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 
-[Back-End Repository](https://github.com/itjosephk2/task-tracker-drf)
+ 
+ 3. Install dependencies:
+ 
+ 
+bash
+ pip install -r requirements.txt
 
----
+ 
+ 4. Create a .env file in the root directory:
+ 
+ 
+env
+ SECRET_KEY=your-secret-key
+ DEBUG=True
+ ALLOWED_HOSTS=127.0.0.1,localhost
+ database_url=your-postgres-url
 
-## Table of Contents
+ 
+ 5. Run migrations and start the server:
+ 
+ 
+bash
+ python manage.py migrate
+ python manage.py runserver
 
-- [Project Purpose](#project-purpose)
-- [Live Site](#live-site)
-- [Technologies Used](#technologies-used)
-- [Features](#features)
-- [UX & UI Design](#ux--ui-design)
-- [Manual Testing](#manual-testing)
-- [Deployment](#deployment)
-- [File Structure](#file-structure)
-- [Testing](#testing)
-- [Future Enhancements](#future-enhancements)
-- [Acknowledgements](#acknowledgements)
+ 
+ ---
+ 
+ ## API Endpoints
+ 
+ | Method | Endpoint            | Description              |
+ |--------|---------------------|--------------------------|
+ | POST   | /api/register/      | Register a new user      |
+ | POST   | /api/login/         | Login & get auth token   |
+ | GET    | /api/tasks/         | List user's tasks        |
+ | POST   | /api/tasks/         | Create new task          |
+ | GET    | /api/tasks/<id>/    | Retrieve task by ID      |
+ | PUT    | /api/tasks/<id>/    | Fully update task        |
+ | PATCH  | /api/tasks/<id>/    | Partially update task    |
+ | DELETE | /api/tasks/<id>/    | Delete a task            |
+ 
+ ---
+ 
+ ## Authentication
+ 
+ Authentication is handled using **token-based authentication** from Django REST Framework.
+ 
+ ### Login
+ - Endpoint: POST /api/login/
+ - Request Body:
+ 
+ 
+json
+ {
+   "username": "your_username",
+   "password": "your_password"
+ }
 
----
+ 
+ - Response:
+ 
+json
+ {
+   "token": "your_token_here"
+ }
 
-## Project Purpose
+ 
+ Use this token in the Authorization header for all protected endpoints:
+ 
+ 
+Authorization: Token your_token_here
 
-Task Tracker is a productivity application that allows users to:
+ 
+ ---
+ 
+ ## Testing
+ 
+ ### Automated Testing
+ 
+ Automated tests were implemented using Django’s built-in TestCase framework to ensure that core backend functionality works as intended.
+ 
+ #### Coverage
+ 
+ - **User Authentication**
+   - Token-based login authentication tested for validity and security.
+ 
+ - **Task API CRUD Operations**
+   - POST /api/tasks/ - Create tasks
+   - GET /api/tasks/ - List user tasks
+   - GET /api/tasks/<id>/ - Retrieve individual tasks
+   - PUT /api/tasks/<id>/ - Fully update tasks
+   - PATCH /api/tasks/<id>/ - Partially update tasks
+   - DELETE /api/tasks/<id>/ - Delete tasks
+ 
+ - **Permissions**
+   - Only authenticated users can access the API.
+   - Each user can only access their own tasks.
+ 
+ #### File Location
+ 
+ All test cases are located in:
+ 
+tasks/tests.py
 
-- Register and log in securely.
-- View, create, update, and delete tasks.
-- Mark tasks as completed.
-- Access a fully responsive, accessible UI built with React and Bootstrap.
+ 
+ #### Running Tests
+ 
+ To run tests locally:
+ 
+bash
+ python manage.py test
 
----
+ 
+ ### Manual Testing
+ 
+ Manual testing was conducted using [ReqBin](https://reqbin.com/), a browser-based API testing tool.
+ 
+ #### Example Requests
+ 
+ **Registration**
+ 
+POST /api/register/
+ {
+   "username": "testuser",
+   "email": "test@example.com",
+   "password": "secure123"
+ }
 
-## Live Site
+ 
+ **Login**
+ 
+POST /api/login/
+ {
+   "username": "testuser",
+   "password": "secure123"
+ }
 
-- Frontend: [Heroku Frontend App](https://task-traker-react-494a1f4ec4cd.herokuapp.com/)
-- Backend API: [Heroku API](https://task-tracker-drf-e7e43a44f5b5.herokuapp.com/api/)
+ Response:
+ 
+json
+ {"token": "abc123"}
 
----
+ 
+ **Create Task**
+ 
+POST /api/tasks/
+ Headers: Authorization: Token abc123
+ {
+   "title": "New Task",
+   "description": "Do something important",
+   "due_date": "2025-03-30"
+ }
 
-##  Technologies Used
+ 
+ **List Tasks**
+ 
+GET /api/tasks/
+ Headers: Authorization: Token abc123
 
-- React.js
-- React Router
-- Axios
-- Bootstrap 5
-- Django REST Framework (Back-End)
-- Heroku (Deployment)
+ 
+ **Update Task**
+ 
+PATCH /api/tasks/1/
+ Headers: Authorization: Token abc123
+ {
+   "completed": true
+ }
 
----
+ 
+ **Delete Task**
+ 
+DELETE /api/tasks/1/
+ Headers: Authorization: Token abc123
 
-## Features
+ 
+ ---
+ 
+ ## Models
+ 
+ | Field       | Type      | Description                      |
+ |-------------|-----------|----------------------------------|
+ | id          | Integer   | Auto-incremented primary key     |
+ | title       | String    | Title of the task                |
+ | description | Text      | Detailed task description        |
+ | due_date    | Date      | Due date for the task            |
+ | completed   | Boolean   | Task completion status           |
+ | created_at  | DateTime  | Timestamp when task was created  |
+ | owner       | FK(User)  | Reference to the user who owns it|
+ 
+ ---
+ 
+ ## Deployment (Heroku)
+ 
+ 1. Create Heroku app:
+ 
+bash
+ heroku create your-app-name
 
-- **Authentication**: User signup, login, and logout.
-- **Task Management (CRUD)**:
-  - Create a task with title, description, and due date.
-  - Read/view task details.
-  - Update tasks using an edit form.
-  - Delete tasks with confirmation.
-  - Mark task as completed using a PATCH request.
-- **Routing**: Protected routes based on login state.
-- **Feedback**: Alerts and validation for form errors and success.
-- **Responsive Design**: Mobile-friendly and accessible.
-- **UX Enhancements**: Loading indicators, navigation feedback.
+ 
+ 2. Set environment variables:
+ 
+bash
+ heroku config:set SECRET_KEY=your-secret-key
+ heroku config:set DEBUG=False
+ heroku config:set ALLOWED_HOSTS=your-app-name.herokuapp.com
+ heroku config:set DATABASE_URL=your-postgres-url
 
----
+ 
+ 3. Disable collectstatic if not using static files:
+ 
+bash
+ heroku config:set DISABLE_COLLECTSTATIC=1
 
-## UX & UI Design
+ 
+ 4. Deploy to Heroku:
+ 
+bash
+ git push heroku main
 
-- Wireframes and mockups designed before implementation.
-- Accessible forms and keyboard-navigable UI.
-- Buttons and navigation are always visible or accessible on relevant pages.
-- Current login state is visible and can log out from any page.
+ 
+ 5. Run migrations:
+ 
+bash
+ heroku run python manage.py migrate
 
----
-
-##  Manual Testing
-
-Manual testing has been completed for the following:
-
-- Navigation works as expected (Login → Home → View → Edit).
-- Login/Logout functionality updates state correctly.
-- Form validation triggers on empty submissions.
-- All CRUD operations provide expected feedback.
-- Invalid actions (e.g., editing another user's task) are blocked via API.
-- API data is correctly rendered and updated.
-
-Test cases and results are documented in the [Testing Section](#testing).
-
----
-
-## Deployment
-
-Deployed using Heroku:
-
-Frontend deployed with static build via Heroku (Node.js buildpack).
-
-## Deployment (Heroku)
-
-1. Create Heroku app:
-```bash
-heroku create your-app-name
-```
-
-2. Deploy to Heroku:
-```bash
-git push heroku main
-```
-
-REACT_APP_API_BASE_URL=https://task-tracker-drf-e7e43a44f5b5.herokuapp.com/api/
-
----
-
-## File Structure
-
-- `src/components/`: All modular React components (Login, Signup, Home, Tasks).
-- `src/api.js`: Central location for API URL and auth header helper.
-- `src/App.js`: Route manager using React Router v6.
-- `src/index.js`: App entry point.
-
----
-
-## Testing
-
-| Feature Tested          | Result |
-|-------------------------|--------|
-| Login/Logout Flow       | ✅ Pass |
-| Register New User       | ✅ Pass |
-| Create Task             | ✅ Pass |
-| Edit Task               | ✅ Pass |
-| Delete Task             | ✅ Pass |
-| Mark as Completed       | ✅ Pass |
-| Navigation/Routes       | ✅ Pass |
-| Responsive Design       | ✅ Pass |
-
----
-
-## Future Enhancements
-
-- Filter/sort tasks by due date and completion.
-- Create task list groups and priority
-- Follow Users and make tasks list groups private or public
-
----
-
-## Acknowledgements
-
-Thanks to Code Institute and the React/Django DRF communities for the walkthroughs, guidance, and support throughout this journey.
+ 
+ ---
+ 
+ ## Notes
+ 
+ - Replace all placeholders with your actual secret keys, database URLs, and app name.
+ - This backend is designed to work seamlessly with a React frontend.
+ 
+ ---
+ 
+ ## Author
+ 
+ Built with care by Joseph Keane, 2025.
