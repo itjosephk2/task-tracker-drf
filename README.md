@@ -1,4 +1,3 @@
-
 # Task Tracker Front-End
 
 This is the front-end React application for the **Task Tracker** project, built as part of the Advanced Front-End Portfolio Project for the Code Institute Full-Stack Software Development diploma.
