@@ -5,6 +5,24 @@ This is the front-end React application for the **Task Tracker** project, built 
 
 [Back-End Repository](https://github.com/itjosephk2/task-tracker-drf)
 
+---
+
+## Table of Contents
+
+- [Project Purpose](#project-purpose)
+- [Live Site](#live-site)
+- [Technologies Used](#technologies-used)
+- [Features](#features)
+- [UX & UI Design](#ux--ui-design)
+- [Manual Testing](#manual-testing)
+- [Deployment](#deployment)
+- [File Structure](#file-structure)
+- [Testing](#testing)
+- [Future Enhancements](#future-enhancements)
+- [Acknowledgements](#acknowledgements)
+
+---
+
 ## Project Purpose
 
 Task Tracker is a productivity application that allows users to:
