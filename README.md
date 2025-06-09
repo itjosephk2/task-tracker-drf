@@ -281,6 +281,7 @@ cd task-tracker-drf
 
 # Open the project in VS Code
 code .
+``` 
 
 Now we need to open up a command prompt to pull this empty repository down onto our machine
 
