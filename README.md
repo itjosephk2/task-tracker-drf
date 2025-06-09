@@ -560,7 +560,7 @@ Now it's time to deploy our new project live for everyone to see on [Heroku](htt
 - Fill in the relevant information
 - Click **Create app** once you are happy
 
-![Deployment 7](documentation/readme_images/deployment-7.png)
+![Deployment 7](assets/images/readme/deployment-7.png)
 
 Once you've created your new [Heroku](https://www.heroku.com) application, we need to add some config variables. Click the **settings** tab and then click **Reveal Config Vars**
 
@@ -574,7 +574,7 @@ Make sure to add the following config variables
 - DISABLE_COLLECTSTATIC - This will be removed before submission
 - SECRET_KEY - This is the secret key you have created
 
-![Deployment 8](documentation/readme_images/deployment-8.png)
+![Deployment 8](assets/images/readme/deployment-8.png)
 
 Now we need to link our [Heroku](https://www.heroku.com) application with our [GitHub](https://github.com/) project
 
@@ -583,7 +583,7 @@ Now we need to link our [Heroku](https://www.heroku.com) application with our [G
 - Search for your repository
 - Once found, click **Connect**
 
-![Deployment 9](documentation/readme_images/deployment-9.png)
+![Deployment 9](assets/images/readme/deployment-9.png)
 
 Finally, we can deploy our connected projected for everyone to see.
 
@@ -591,7 +591,7 @@ You can either choose **Enable Automatic Deploys** or **Deploy Branch**. I chose
 
 - Click **Deploy Branch** and wait for it to build
 
-![Deployment 10](documentation/readme_images/deployment-10.png)
+![Deployment 10](assets/images/readme/deployment-10.png)
 
 [Back to top](#contents)
 
