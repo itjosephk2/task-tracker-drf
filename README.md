@@ -302,44 +302,25 @@ Now we need to add our newly installed apps to our **settings.py** file
 
 ![Deployment 4](assets/images/readme/installed-apps.png)
 
-Next, create a new **env.py** file and paste in the following code - remembering to change the "YOUR CLOUDINARY URL HERE" part to your API key
-
-```Python
-import os
-
-os.environ["CLOUDINARY_URL"] = "YOUR CLOUDINARY_URL_HERE"
-
-```
-
+Next, create a new **env.py** file and paste in the following code.
 Back in our **settings.py** file we need to import our **env.py** file if it exists
 
 ```Python
 import os
 
-if os.path.exists("env.py"):
-    import env
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "fallback-secret-key")
+DEBUG = os.getenv("DEBUG", "False") == "True"
+
+# ALLOWED HOSTS (split comma-separated string into a list)
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1").split(",")
+
+if os.getenv("DATABASE_URL"):
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 ```
 
-Now we need to reference our new Cloudinary URL in **settings.py**
+Now it's time to start creating our applications. For my project I created 1 applications
 
-```Python
-CLOUDINARY_STORAGE = {"CLOUDINARY_URL": os.environ.get("CLOUDINARY_URL")}
-```
-
-Now we need to define our MEDIA_URL and DEFAULT_FILE_STORAGE in **settings.py**
-
-```Python
-MEDIA_URL = "/media/"
-
-DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
-```
-
-Now it's time to start creating our applications. For my project I created 4 seperate applications
-
-- **champions**
-- **comments**
-- **profiles**
-- **upvotes**
+- **tasks**
 
 Don't forget to add these applications to the INSTALLED_APPS variable in **settings.py**
 
