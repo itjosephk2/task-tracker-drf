@@ -294,7 +294,7 @@ code .
 
 Now it's time to install Django and some additional packages
 
-- Install requirements with pip install requirements.txt
+- Install requirements with pip install -r requirements.txt
 - Create our new project by typing **django-admin startproject drf_api_deployment_process .**
 
 
