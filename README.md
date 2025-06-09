@@ -194,15 +194,7 @@ python manage.py test
 For coverage reports (optional):
 
 ```bash
-coverage run manage.py test
-coverage report
-coverage html  # For a browsable HTML report
-```
-
-Make sure you have `coverage.py` installed:
-
-```bash
-pip install coverage
+python run manage.py test
 ```
 
 ---
