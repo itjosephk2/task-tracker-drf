@@ -137,106 +137,184 @@ Authorization: Token your_token_here
  ---
  
  ## Testing
- 
- ### Automated Testing
- 
- Automated tests were implemented using Django’s built-in TestCase framework to ensure that core backend functionality works as intended.
- 
- #### Coverage
- 
- - **User Authentication**
-   - Token-based login authentication tested for validity and security.
- 
- - **Task API CRUD Operations**
-   - POST /api/tasks/ - Create tasks
-   - GET /api/tasks/ - List user tasks
-   - GET /api/tasks/<id>/ - Retrieve individual tasks
-   - PUT /api/tasks/<id>/ - Fully update tasks
-   - PATCH /api/tasks/<id>/ - Partially update tasks
-   - DELETE /api/tasks/<id>/ - Delete tasks
- 
- - **Permissions**
-   - Only authenticated users can access the API.
-   - Each user can only access their own tasks.
- 
- #### File Location
- 
- All test cases are located in:
- 
+
+### Automated Testing
+
+Automated tests were implemented using Django’s built-in `TestCase` framework to validate key functionality across authentication, task management, and permission enforcement.
+
+#### Test Coverage
+
+**1. User Authentication**
+
+* Token-based login with valid credentials
+* Registration with unique username/email
+* Rejection of duplicate usernames or invalid data
+* Token is returned on successful login
+* Invalid login credentials return appropriate error
+
+**2. Task API - CRUD Operations**
+
+| Method   | Endpoint           | Description                                        |
+| -------- | ------------------ | -------------------------------------------------- |
+| `POST`   | `/api/tasks/`      | Create new task                                    |
+| `GET`    | `/api/tasks/`      | List all tasks belonging to the authenticated user |
+| `GET`    | `/api/tasks/<id>/` | Retrieve a single task by ID                       |
+| `PUT`    | `/api/tasks/<id>/` | Fully update a task                                |
+| `PATCH`  | `/api/tasks/<id>/` | Partially update a task                            |
+| `DELETE` | `/api/tasks/<id>/` | Delete a task                                      |
+
+Each endpoint is tested for:
+
+* Correct HTTP status codes (`201`, `200`, `204`, `403`, `404`)
+* Data integrity (e.g. tasks belong only to the authenticated user)
+* Validation errors (e.g. missing fields)
+
+**3. Permissions**
+
+* API access is restricted to authenticated users (Token required)
+* Users can only access, update, or delete **their own tasks**
+* Unauthorized access returns appropriate status codes (`401`, `403`)
+
+#### Test File Location
+
+All test cases are located in:
+
+```plaintext
 tasks/tests.py
+```
 
- 
- #### Running Tests
- 
- To run tests locally:
- 
-bash
- python manage.py test
+#### Running Tests Locally
 
- 
- ### Manual Testing
- 
- Manual testing was conducted using [ReqBin](https://reqbin.com/), a browser-based API testing tool.
- 
- #### Example Requests
- 
- **Registration**
- 
+To run the test suite and see results in your terminal:
+
+```bash
+python manage.py test
+```
+
+For coverage reports (optional):
+
+```bash
+coverage run manage.py test
+coverage report
+coverage html  # For a browsable HTML report
+```
+
+Make sure you have `coverage.py` installed:
+
+```bash
+pip install coverage
+```
+
+---
+
+### Manual Testing
+
+Manual testing was performed using [ReqBin](https://reqbin.com/) and [Postman](https://www.postman.com/) to simulate API interaction from the frontend or external clients.
+
+#### Example Requests
+
+> The following examples use placeholder values such as `testuser`, `test@example.com`, and `abc123`. These values must be replaced with valid credentials obtained from your actual registration and login processes.
+
+** Registration**
+
+```http
 POST /api/register/
- {
-   "username": "testuser",
-   "email": "test@example.com",
-   "password": "secure123"
- }
+Content-Type: application/json
 
- 
- **Login**
- 
+{
+  "username": "testuser",
+  "email": "test@example.com",
+  "password": "secure123"
+}
+```
+
+**Note:** If you attempt to login or access endpoints without having registered a user, you will receive a `400 Bad Request` or `401 Unauthorized` error.
+
+---
+
+** Login**
+
+```http
 POST /api/login/
- {
-   "username": "testuser",
-   "password": "secure123"
- }
+Content-Type: application/json
 
- Response:
- 
-json
- {"token": "abc123"}
+{
+  "username": "testuser",
+  "password": "secure123"
+}
+```
 
- 
- **Create Task**
- 
+**Response:**
+
+```json
+{
+  "token": "abc123"
+}
+```
+
+**Note:** If incorrect login credentials are used, the system will return a `400 Bad Request` with a message like "Invalid credentials."
+
+---
+
+** Create Task**
+
+```http
 POST /api/tasks/
- Headers: Authorization: Token abc123
- {
-   "title": "New Task",
-   "description": "Do something important",
-   "due_date": "2025-03-30"
- }
+Authorization: Token abc123
+Content-Type: application/json
 
- 
- **List Tasks**
- 
+{
+  "title": "New Task",
+  "description": "Do something important",
+  "due_date": "2025-03-30"
+}
+```
+
+**Note:** Omitting the token or using an invalid one will result in `401 Unauthorized`.
+
+---
+
+** List Tasks**
+
+```http
 GET /api/tasks/
- Headers: Authorization: Token abc123
+Authorization: Token abc123
+```
 
- 
- **Update Task**
- 
+---
+
+** Update Task**
+
+```http
 PATCH /api/tasks/1/
- Headers: Authorization: Token abc123
- {
-   "completed": true
- }
+Authorization: Token abc123
+Content-Type: application/json
 
- 
- **Delete Task**
- 
+{
+  "completed": true
+}
+```
+
+---
+
+** Delete Task**
+
+```http
 DELETE /api/tasks/1/
- Headers: Authorization: Token abc123
+Authorization: Token abc123
+```
 
- 
- ---
+---
+
+###  Summary of Manual Testing Outcomes
+
+* All endpoints tested with both valid and invalid data
+* Authentication flow works correctly from registration to token use
+* Unauthorized access and data validation produce correct error codes
+* API responses were validated for consistency with expected behavior
+
+---
+
  
  ## Models
  
