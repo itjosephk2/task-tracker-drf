@@ -294,10 +294,9 @@ code .
 
 Now it's time to install Django and some additional packages
 
-- Install Django by typing **pip install 'django<4'**
+- Install requirements with pip install requirements.txt
 - Create our new project by typing **django-admin startproject drf_api_deployment_process .**
-- Install cloudinary storage by typing **pip install django-cloudinary-storage**
-- Install Pillow by typing **pip install Pillow**
+
 
 Now we need to add our newly installed apps to our **settings.py** file
 
