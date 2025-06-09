@@ -261,7 +261,7 @@ Firstly we need to create a new repository in [GitHub](https://github.com/) wher
 - Navigate to [GitHub](https://github.com/)
 - Create a new repository with no template
 
-![Deployment 1](documentation/readme_images/deployment-1.png)
+![Deployment 1](assets/images/readme/create-github-repository.png)
 
 Once you've created your new empty repository, we need to pull this repository down onto our local machine. Throughout the course I have used [VSCode](https://code.visualstudio.com/) to create and manage my projects instead of GitPod so I will be demonstrating the process with [VSCode](https://code.visualstudio.com/).
 
