@@ -334,8 +334,18 @@ Add both rest framework’s auth token and django rest auth to INSTALLED APPS -
 
 ```Python
 INSTALLED_APPS = [
-    "rest_framework.authtoken",
-    "dj_rest_auth",
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    # rest
+    'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
+    # custom apps
+    'tasks',
 ]
 ```
 
@@ -343,7 +353,9 @@ Now add the urls to the urlpatterns list **path('dj-rest-auth/', include('dj_res
 
 ```Python
 urlpatterns = [
-    path("dj-rest-auth/", include("dj_rest_auth.urls")),
+    path('admin/', admin.site.urls),
+    path('api/', include('tasks.urls')),
+    path('api/login/', obtain_auth_token, name='api_token_auth'),
 ]
 ```
 
@@ -512,16 +524,6 @@ Back in **settings.py**, we need to tell the project which hosts to allow
 ALLOWED_HOSTS = [
     os.environ.get("ALLOWED_HOST"),
     "127.0.0.1",
-]
-```
-
-Now it's time to install **CORS**
-
-In the terminal, type in **pip install django-cors-headers** and then add it to the INSTALLED_APPS
-
-```Python
-INSTALLED_APPS = [
-    'corsheaders',
 ]
 ```
 
