@@ -456,23 +456,6 @@ from .views import root_route
     path("", root_route),
 ```
 
-Now it's time to create a new production database with [ElephantSQL](https://www.elephantsql.com/)
-
-- Log into [ElephantSQL](https://www.elephantsql.com/)
-- Click **Create New Instance**
-- Give your plan a name
-- Select \*_Tiny Turtle (Free)_ plan
-- Click **Select Region** and pick a data center near you
-- Click **Review**, double check the information you provided, once happy, click **Create Instance**
-
-We need to get the new database URL from the [ElephantSQL](https://www.elephantsql.com/) dashboard.
-
-Return to the dashboard, find your newly created plan and copy the URL
-
-![Deployment 5](documentation/readme_images/deployment-5.png)
-
-Back in our local project, in **eny.py** we can add our copied production database URL and store it in a new variable which can be referenced without exposing the value to unwanted eyes
-
 ```Python
 os.environ.setdefault(
     "DATABASE_URL", "YOUR DB URL HERE",
