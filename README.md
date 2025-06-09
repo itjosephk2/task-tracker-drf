@@ -301,7 +301,7 @@ Now it's time to install Django and some additional packages
 
 Now we need to add our newly installed apps to our **settings.py** file
 
-![Deployment 4](assets/images/readme/create-github-repository.png)
+![Deployment 4](assets/images/readme/installed-apps.png)
 
 Next, create a new **env.py** file and paste in the following code - remembering to change the "YOUR CLOUDINARY URL HERE" part to your API key
 
