@@ -269,6 +269,15 @@ Once you've created your new empty repository, we need to pull this repository d
 
 ## Cloning and Opening the Task Tracker DRF Repository
 
+
+
+Now we need to open up a command prompt to pull this empty repository down onto our machine
+
+- Open a CMD
+- CD to a location you wish to store this project
+- Now type **git clone https://github.com/MikeR94/drf-api-deployment-process.git**
+- After the project has been pulled down onto your local machine, CD to the project and type **code .** to open the project with [VSCode](https://code.visualstudio.com/)
+
 ```bash
 # Navigate to the Desktop
 cd Desktop
@@ -282,15 +291,6 @@ cd task-tracker-drf
 # Open the project in VS Code
 code .
 ``` 
-
-Now we need to open up a command prompt to pull this empty repository down onto our machine
-
-- Open a CMD
-- CD to a location you wish to store this project
-- Now type **git clone https://github.com/MikeR94/drf-api-deployment-process.git**
-- After the project has been pulled down onto your local machine, CD to the project and type **code .** to open the project with [VSCode](https://code.visualstudio.com/)
-
-![Deployment 3](assets/images/readme/installed-apps.png)
 
 Now it's time to install Django and some additional packages
 
