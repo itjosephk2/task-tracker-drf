@@ -560,9 +560,25 @@ Next we need to install gunicorn. In the terminal, type in the following
 
 - **pip install gunicorn**
 
-Now created a Procfile at the root level in your project
+Before creating the `Procfile`, make sure you're in the **root directory** of your Django project.
 
-![Deployment 6](documentation/readme_images/deployment-6.png)
+If you’re not already there, use:
+
+```bash
+cd task-tracker-drf
+```
+
+To let Heroku know how to run your project, create a file named `Procfile` in your project’s root directory:
+
+```bash
+touch Procfile
+```
+
+Important:
+
+The file must be named exactly Procfile — capital "P", no file extension (not .txt, .md, or lowercase).
+
+Heroku is case-sensitive and won’t recognize it otherwise.
 
 Within that newly created Procfile, add the following code to let Heroku know how to run the project
 
